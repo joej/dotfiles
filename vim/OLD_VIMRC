@@ -1,0 +1,6 @@
+set nohls ai ts=4 sw=4 noet
+syntax enable
+:au BufNewFile,BufRead *.php so <sfile>:h/dwt.vim
+set background=dark
+syntax on
+filetype plugin indent on
