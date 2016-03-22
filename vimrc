@@ -29,7 +29,7 @@ func! Python_init()
     setlocal complete+=k~/.vim/pydiction "use auto-completion from the specified dictionary
     setlocal nowrap "don't wrap source code, it's evil
     setlocal noignorecase nosmartcase "avoid corrupting source code on search/replace operations
-    match ExtraWhitespace /\s\+\%#\@<!$/
+    match ExtraWhiteSpace /\s\+\%#\@<!$/
     match OverLength /\%80v.\+/
 endfunc
 
