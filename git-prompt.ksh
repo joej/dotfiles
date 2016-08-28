@@ -104,9 +104,16 @@ function __gitdir
 # used by GIT_PS1_SHOWUPSTREAM
 function __git_ps1_show_upstream
 {
-	local key value
-	local svn_remote svn_url_pattern count n
-	local upstream=git legacy="" verbose=""
+	typeset key value 
+	typeset svn_remote svn_url_pattern count n
+    typeset upstream legacy verbose
+    typeset n_stop
+    typeset commits
+    typeset commit behind ahead
+
+	upstream=git 
+    legacy="" 
+    verbose=""
 
 	svn_remote=""
 	# get some config options from git-config
@@ -149,9 +156,9 @@ function __git_ps1_show_upstream
 		if [[ 0 -ne ${#svn_upstream[@]} ]]; then
 			svn_upstream=${svn_upstream[ ${#svn_upstream[@]} - 2 ]}
 			svn_upstream=${svn_upstream%@*}
-			local n_stop="${#svn_remote[@]}"
+			n_stop="${#svn_remote[@]}"
 			# for (n=1; n <= n_stop; n++); do
-      local count=1;
+      count=1;
 			for n in n_stop; do
 				svn_upstream=${svn_upstream#${svn_remote[$count]}}
         ((count=count+1))
@@ -175,10 +182,10 @@ function __git_ps1_show_upstream
 				"$upstream"...HEAD 2>/dev/null)"
 	else
 		# produce equivalent output to --count for older versions of git
-		local commits
 		if commits="$(git rev-list --left-right "$upstream"...HEAD 2>/dev/null)"
 		then
-			local commit behind=0 ahead=0
+			behind=0 
+            ahead=0
 			for commit in $commits
 			do
 				case "$commit" in
@@ -237,11 +244,18 @@ function __git_ps1_show_upstream
 # In this mode you can request colored hints using GIT_PS1_SHOWCOLORHINTS=true
 function __git_ps1
 {
-	local pcmode=no
-	local detached=no
-	local ps1pc_start='\u@\h:\w '
-	local ps1pc_end='\$ '
-	local printf_format=' (%s)'
+    typeset pcmode detached ps1pc_start ps1pc_end printf_format
+    typeset g r b
+	typeset w i s u c p 
+    typeset f
+    typeset gitstring 
+    typeset c_red c_green c_lblue c_clear bad_color ok_color branch_color flags_color branchstring
+
+	pcmode=no
+	detached=no
+	ps1pc_start='\u@\h:\w '
+	ps1pc_end='\$ '
+	printf_format=' (%s)'
 
 	case "$#" in
 		2|3)	pcmode=yes
@@ -255,15 +269,15 @@ function __git_ps1
 		;;
 	esac
 
-	local g="$(__gitdir)"
+	g="$(__gitdir)"
 	if [ -z "$g" ]; then
 		if [ $pcmode = yes ]; then
 			#In PC mode PS1 always needs to be set
 			PS1="$ps1pc_start$ps1pc_end"
 		fi
 	else
-		local r=""
-		local b=""
+		r=""
+		b=""
 		if [ -f "$g/rebase-merge/interactive" ]; then
 			r="|REBASE-i"
 			b="$(cat "$g/rebase-merge/head-name")"
@@ -307,12 +321,12 @@ function __git_ps1
 			}
 		fi
 
-		local w=""
-		local i=""
-		local s=""
-		local u=""
-		local c=""
-		local p=""
+		w=""
+		i=""
+		s=""
+		u=""
+		c=""
+		p=""
 
 		if [ "true" = "$(git rev-parse --is-inside-git-dir 2>/dev/null)" ]; then
 			if [ "true" = "$(git rev-parse --is-bare-repository 2>/dev/null)" ]; then
@@ -346,19 +360,19 @@ function __git_ps1
 			fi
 		fi
 
-		local f="$w$i$s$u"
+		f="$w$i$s$u"
 		if [ $pcmode = yes ]; then
-			local gitstring=
+			gitstring=
 			if [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
-				local c_red='\e[31m'
-				local c_green='\e[32m'
-				local c_lblue='\e[1;34m'
-				local c_clear='\e[0m'
-				local bad_color=$c_red
-				local ok_color=$c_green
-				local branch_color="$c_clear"
-				local flags_color="$c_lblue"
-				local branchstring="$c${b##refs/heads/}"
+				c_red='\e[31m'
+				c_green='\e[32m'
+				c_lblue='\e[1;34m'
+				c_clear='\e[0m'
+				bad_color=$c_red
+				ok_color=$c_green
+				branch_color="$c_clear"
+				flags_color="$c_lblue"
+				branchstring="$c${b##refs/heads/}"
 
 				if [ $detached = no ]; then
 					branch_color="$ok_color"
