@@ -11,6 +11,7 @@ set encoding=utf-8              " Set the default file encoding to UTF-8:
 set fileformat=unix
 set textwidth=79
 
+" - see https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#.V1rDm_8hrNU.reddit
 let python_highlight_all=1      " For full syntax highlighting:
 
 set title       " terminal tile = current active buffer
