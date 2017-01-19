@@ -1,4 +1,12 @@
-export HOSTNAME=`/usr/sbin/scutil --get HostName`
+if [[ -x /usr/sbin/scutil ]]
+then
+    export HOSTNAME=`/usr/sbin/scutil --get HostName`
+fi
+
+if [[ -x /usr/bin/hostname ]]
+then
+    export HOSTNAME=`/usr/bin/hostname`
+fi
 
 case $LOGNAME in 
 root)   PS1="${HOSTNAME}:\${PWD} \# " ;;
