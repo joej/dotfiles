@@ -1,9 +1,25 @@
-import readline
-import rlcompleter
 import atexit
 import os
 import sys
-readline.parse_and_bind('tab: complete')
+
+# - command line VIM?
+try:
+    import readline
+    readline.parse_and_bind('tab: complete')
+    readline.parse_and_bind('set editing-mode vi')
+
+    print "-- readline available."
+except ImportError:
+    print "-- readline not available."
+else:
+    import rlcompleter
+    if 'libedit' in readline.__doc__:
+        readline.parse_and_bind("bind ^I rl_complete")
+    else:
+        readline.parse_and_bind("tab: complete")
+    print "-- rlcomplete available"
+
+
 if sys.version[0] == 2:
   histfile = os.path.join(os.environ['HOME'], '.pythonhistory')
   try:
@@ -13,3 +29,5 @@ if sys.version[0] == 2:
   atexit.register(readline.write_history_file, histfile)
   del histfile
 del os, sys, readline, rlcompleter
+
+

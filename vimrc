@@ -11,7 +11,6 @@ set encoding=utf-8              " Set the default file encoding to UTF-8:
 set fileformat=unix
 set textwidth=79
 
-" - see https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#.V1rDm_8hrNU.reddit
 let python_highlight_all=1      " For full syntax highlighting:
 
 set title       " terminal tile = current active buffer
@@ -31,6 +30,7 @@ filetype plugin on
 
 func! Python_init()
     setlocal smartindent smarttab
+    setlocal expandtab
     setlocal sw=4 ts=4 sts=4        " as per PEP8
     setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
     setlocal complete+=k~/.vim/pydiction "use auto-completion from the specified dictionary
@@ -118,13 +118,14 @@ set statusline+=%h%1*%m%r%w%0* " flag
 set statusline+=%= " right align
 set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_quiet_messages = { "type": "style" }        " hush up some of the msgs
 let g:syntastic_python_pylint_args = "--load-plugins pylint_django"
+let g:syntastic_html_validator_exec = '/usr/local/bin/tidy'
+"
 "
 " by default, lets DISABLE syntastic
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
