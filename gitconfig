@@ -1,0 +1,29 @@
+[user]
+	name = Joe Judge
+	email = joe@intrusion.org, judge@mitre.org, joseph.judge.ctr@us.af.mil
+[core]
+	excludesfile = /Users/judge/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[push]
+	default = simple
+[color]
+	ui = True
+[http]
+	postbuffer = 524288000
+[alias]
+    remotes = remote -v
+    branches = branch -a
+    tags = tag -l
+    currentbranch = rev-parse --abbrev-ref HEAD
+    id = rev-parse --short HEAD
+    lg = log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    st = status -sb
+    co = checkout
+[merge]
+	tool = "DiffMerge"
