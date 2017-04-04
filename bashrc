@@ -42,17 +42,20 @@ set +o histexpand
 test -e "${HOME}/.proxy" && source "${HOME}/.proxy"
 
 # github
-export HOMEBREW_GITHUB_API_TOKEN=157ca4b6f108b155f3ed79e0cca66924d6efac1f
+export HOMEBREW_GITHUB_API_TOKEN=xxx
 
 # - item2 shell integration for Mac OS X
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
+
+
 # - vars to share with item2
 function iterm2_print_user_vars() { 
-#    iterm2_set_user_var gitBranch $(( /usr/local/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null ))
     iterm2_set_user_var gitBranch $(( /usr/local/bin/git branch 2> /dev/null) | /usr/bin/sed -e '/^\*/!d' -e 's/^..//' )
-    #iterm2_set_user_var gitFetchUrl $(( /usr/local/bin/git config --get remote.origin.url ))
 }
+# note, I previously used:
+#iterm2_set_user_var gitBranch $(( /usr/local/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null ))
+#iterm2_set_user_var gitFetchUrl $(( /usr/local/bin/git config --get remote.origin.url ))
 
 # brew
 export PATH=$PATH:/usr/local/sbin:/usr/local/opt/apr/bin:
@@ -80,14 +83,14 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # from http://fgimian.github.io/blog/2014/04/20/better-python-version-and-environment-management-with-pyenv/
 #
 if [ -d "${PYENV_ROOT}" ]; then
-    echo "pyenv - init"
+    echo "pyenv init- "
     eval "$(pyenv init -)"
     #source $HOME/.pyenv_init
 
     # -- include virtualenv plugin
     # https://github.com/yyuu/pyenv-virtualenv
     echo "pyenv virtualenv-init -"
-    eval "$(pyenv virtualenv-init - )"
+    eval "$(pyenv virtualenv-init -)"
     #source $HOME/.pyenv_virtualenv_init
     # -- include autoenv
     # so .env files inside projects set post-activate environment vars
