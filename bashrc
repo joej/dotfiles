@@ -65,18 +65,12 @@ function unproxy() {
 export PATH=$PATH:/usr/local/sbin:/usr/local/opt/apr/bin:
 export PYTHONSTARTUP=~/.pythonstartup
 export JAVA_HOME=`/usr/libexec/java_home`
-export HOMEBREW_GITHUB_API_TOKEN=xxx
 
 # - arch flags
 export ARCHFLAGS="-arch x86_64"
 # ensure user-install binaries take precedence
 export PATH=~/bin:/usr/local/bin:/usr/local/share:/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin:$PATH
 
-# -- virtualenv with the wrapper
-#export WORKON_HOME=$HOME/VirtualEnvs
-#export PROJECT_HOME=$HOME/Devel
-#export VIRTUALENVWRAPPER_SCRIPT=/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
-#source /usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_lazy.sh
 
 # -- pyenv
 export PYENV_ROOT="$HOME/.pyenv"
