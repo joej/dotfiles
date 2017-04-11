@@ -47,21 +47,25 @@ export HOMEBREW_GITHUB_API_TOKEN=xxx
 # - item2 shell integration for Mac OS X
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-
-
 # - vars to share with item2
 function iterm2_print_user_vars() { 
     iterm2_set_user_var gitBranch $(( /usr/local/bin/git branch 2> /dev/null) | /usr/bin/sed -e '/^\*/!d' -e 's/^..//' )
+    iterm2_set_user_var gitRepo $(( /usr/local/bin/git branch 2> /dev/null) | /usr/bin/awk -F':' '{ print $2 }')
 }
 # note, I previously used:
 #iterm2_set_user_var gitBranch $(( /usr/local/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null ))
 #iterm2_set_user_var gitFetchUrl $(( /usr/local/bin/git config --get remote.origin.url ))
 
+# useful aliases
+function unproxy() { 
+    unset HTTP_PROXY http_proxy HTTPS_PROXY https_proxy; 
+}
+
 # brew
 export PATH=$PATH:/usr/local/sbin:/usr/local/opt/apr/bin:
 export PYTHONSTARTUP=~/.pythonstartup
 export JAVA_HOME=`/usr/libexec/java_home`
-export HOMEBREW_GITHUB_API_TOKEN=157ca4b6f108b155f3ed79e0cca66924d6efac1f
+export HOMEBREW_GITHUB_API_TOKEN=xxx
 
 # - arch flags
 export ARCHFLAGS="-arch x86_64"
@@ -97,3 +101,17 @@ if [ -d "${PYENV_ROOT}" ]; then
     # - fails for KSH: source /usr/local/opt/autoenv/activate.sh
 fi
 
+# -- aliases
+# chrome
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Show/hide hidden files in Finder
+alias fileshow="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias filehide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
