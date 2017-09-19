@@ -6,7 +6,10 @@ set shiftwidth=4
 set autoindent
 set expandtab
 set nohls       " don't highlight searches
-syntax on       " higlight syntax
+"syntax on       " higlight syntax
+if !exists("g:syntax_on")
+    syntax enable
+endif
 set encoding=utf-8              " Set the default file encoding to UTF-8: 
 set fileformat=unix
 set textwidth=79
