@@ -51,6 +51,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 function iterm2_print_user_vars() { 
     iterm2_set_user_var gitBranch $(( /usr/local/bin/git branch 2> /dev/null) | /usr/bin/sed -e '/^\*/!d' -e 's/^..//' )
     iterm2_set_user_var gitRepo $(( /usr/local/bin/git branch 2> /dev/null) | /usr/bin/awk -F':' '{ print $2 }')
+    iterm2_set_user_var gitDir $(/usr/bin/basename $(/usr/local/bin/git rev-parse --show-toplevel 2> /dev/null) 2> /dev/null)
 }
 # note, I previously used:
 #iterm2_set_user_var gitBranch $(( /usr/local/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null ))
@@ -58,7 +59,7 @@ function iterm2_print_user_vars() {
 
 # useful aliases
 function unproxy() { 
-    unset HTTP_PROXY http_proxy HTTPS_PROXY https_proxy; 
+    unset HTTP_PROXY http_proxy HTTPS_PROXY https_proxy ALL_PROXYall_proxy 
 }
 
 # brew
